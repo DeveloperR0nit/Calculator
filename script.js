@@ -103,22 +103,57 @@ btnDot.addEventListener("click", () => {
 });
 
 divBtn.addEventListener("click", () => {
-  mainLine.innerHTML += "<span>/</span>";
+  if (checkPrevious(mainLine.textContent, "/") == 1) {
+    mainLine.lastChild.remove();
+    mainLine.innerHTML += "<span>/</span>";
+  } else if (checkPrevious(mainLine.textContent, "/") == 2) {
+    mainLine.innerHTML += "<span>/</span>";
+  }
 });
 mulBtn.addEventListener("click", () => {
-  mainLine.innerHTML += "<span>*</span>";
+  if (checkPrevious(mainLine.textContent, "*") == 1) {
+    mainLine.lastChild.remove();
+    mainLine.innerHTML += "<span>*</span>";
+  } else if (checkPrevious(mainLine.textContent, "*") == 2) {
+    mainLine.innerHTML += "<span>*</span>";
+  }
 });
 plusBtn.addEventListener("click", () => {
-  mainLine.innerHTML += "<span>+</span>";
+  if (checkPrevious(mainLine.textContent, "+") == 1) {
+    mainLine.lastChild.remove();
+    mainLine.innerHTML += "<span>+</span>";
+  } else if (checkPrevious(mainLine.textContent, "+") == 2) {
+    mainLine.innerHTML += "<span>+</span>";
+  }
 });
 minBtn.addEventListener("click", () => {
-  mainLine.innerHTML += "<span>-</span>";
+  if (checkPrevious(mainLine.textContent, "-") == 1) {
+    mainLine.lastChild.remove();
+    mainLine.innerHTML += "<span>-</span>";
+  } else if (checkPrevious(mainLine.textContent, "-") == 2) {
+    mainLine.innerHTML += "<span>-</span>";
+  }
 });
 
 equalsBtn.addEventListener("click", () => {
-  topLine.textContent = mainLine.textContent;
+  topLine.innerHTML = mainLine.innerHTML;
   mainLine.textContent = "=" + roundOff(arrangeBracket(mainLine.textContent));
 });
+
+function checkPrevious(eqn, char) {
+  eqnArr = eqn.split(/([+\-*/π√()])/).filter(Boolean);
+  let len = eqnArr.length;
+  let arr = ["+", "-", "/", "*"];
+  let index = arr.indexOf(char);
+  arr.splice(index, 1);
+  if (eqnArr[len - 1] == char) {
+    return 0;
+  } else if (arr.includes(eqnArr[len - 1])) {
+    return 1;
+  } else {
+    return 2;
+  }
+}
 
 function roundOff(num) {
   if (Number(num)) {
@@ -156,7 +191,7 @@ function arrangeBracket(eqn) {
   eqnArr = convertPi(eqnArr);
   for (let i = 0; i < eqnArr.length; i++) {
     if (eqnArr[i] == "(") {
-      if (Number(eqnArr[i - 1])) {
+      if (Number(eqnArr[i - 1]) || eqnArr[i - 1] == ")") {
         eqnArr.splice(i, 0, "*");
       }
     }
@@ -188,8 +223,25 @@ function Bracket(eqn) {
   return calculate(eqn);
 }
 
+function repairPlusMinusBefore(arrSum) {
+  let arr = ["/", "*", "("];
+  for (let i = 0; i < arrSum.length; i++) {
+    if (arrSum[i] == "-" && arrSum[i - 1] == undefined) {
+      arrSum.splice(i, 2, "-" + arrSum[i + 1]);
+    } else if (arrSum[i] == "-" && arr.includes(arrSum[i - 1])) {
+      arrSum.splice(i, 2, "-" + arrSum[i + 1]);
+    }
+  }
+  return arrSum;
+}
+
 function calculate(eqn) {
+  console.log(eqn);
   arrSum = eqn.split(/([+\-*/π√])/).filter(Boolean);
+  arrSum = repairPlusMinusBefore(arrSum);
+  console.log(arrSum);
+
+  console.log(arrSum);
   arrSum = convertSqrt(arrSum);
   console.log(arrSum);
   for (let i = 0; i < arrSum.length; i++) {
@@ -197,24 +249,20 @@ function calculate(eqn) {
       let calc = Number(arrSum[i - 1]) / Number(arrSum[i + 1]);
       arrSum.splice(i - 1, 3, calc);
       i--;
-    }
-  }
-  for (let i = 0; i < arrSum.length; i++) {
-    if (arrSum[i] == "*") {
+    } else if (arrSum[i] == "*") {
       let calc = Number(arrSum[i - 1]) * Number(arrSum[i + 1]);
       arrSum.splice(i - 1, 3, calc);
       i--;
     }
   }
+
+  console.log(arrSum);
   for (let i = 0; i < arrSum.length; i++) {
     if (arrSum[i] == "+") {
       let calc = Number(arrSum[i - 1]) + Number(arrSum[i + 1]);
       arrSum.splice(i - 1, 3, calc);
       i--;
-    }
-  }
-  for (let i = 0; i < arrSum.length; i++) {
-    if (arrSum[i] == "-") {
+    } else if (arrSum[i] == "-") {
       let calc = Number(arrSum[i - 1]) - Number(arrSum[i + 1]);
       arrSum.splice(i - 1, 3, calc);
       i--;
