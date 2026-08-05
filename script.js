@@ -29,18 +29,30 @@ const plusBtn = document.querySelector("#plus");
 const equalsBtn = document.querySelector("#equals");
 
 piBtn.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("π");
   mainLine.append(textNode);
 });
 rootBtn.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("√");
   mainLine.append(textNode);
 });
 brac1Btn.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("(");
   mainLine.append(textNode);
 });
 brac2Btn.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode(")");
   mainLine.append(textNode);
 });
@@ -58,52 +70,88 @@ backspaceBtn.addEventListener("click", () => {
 });
 
 btn1.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("1");
   mainLine.append(textNode);
 });
 btn2.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("2");
   mainLine.append(textNode);
 });
 btn3.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("3");
   mainLine.append(textNode);
 });
 btn4.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("4");
   mainLine.append(textNode);
 });
 btn5.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("5");
   mainLine.append(textNode);
 });
 btn6.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("6");
   mainLine.append(textNode);
 });
 btn7.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("7");
   mainLine.append(textNode);
 });
 btn8.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("8");
   mainLine.append(textNode);
 });
 btn9.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("9");
   mainLine.append(textNode);
 });
 btn0.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode("0");
   mainLine.append(textNode);
 });
 btnDot.addEventListener("click", () => {
+  if (isError(mainLine.textContent)) {
+    mainLine.lastChild.remove();
+  }
   const textNode = document.createTextNode(".");
   mainLine.append(textNode);
 });
 
 divBtn.addEventListener("click", () => {
-  if (checkPrevious(mainLine.textContent, "/") == 1) {
+  if (
+    checkPrevious(mainLine.textContent, "/") == 1 ||
+    isError(mainLine.textContent)
+  ) {
     mainLine.lastChild.remove();
     mainLine.innerHTML += "<span>/</span>";
   } else if (checkPrevious(mainLine.textContent, "/") == 2) {
@@ -111,7 +159,10 @@ divBtn.addEventListener("click", () => {
   }
 });
 mulBtn.addEventListener("click", () => {
-  if (checkPrevious(mainLine.textContent, "*") == 1) {
+  if (
+    checkPrevious(mainLine.textContent, "*") == 1 ||
+    isError(mainLine.textContent)
+  ) {
     mainLine.lastChild.remove();
     mainLine.innerHTML += "<span>*</span>";
   } else if (checkPrevious(mainLine.textContent, "*") == 2) {
@@ -119,7 +170,10 @@ mulBtn.addEventListener("click", () => {
   }
 });
 plusBtn.addEventListener("click", () => {
-  if (checkPrevious(mainLine.textContent, "+") == 1) {
+  if (
+    checkPrevious(mainLine.textContent, "+") == 1 ||
+    isError(mainLine.textContent)
+  ) {
     mainLine.lastChild.remove();
     mainLine.innerHTML += "<span>+</span>";
   } else if (checkPrevious(mainLine.textContent, "+") == 2) {
@@ -127,7 +181,10 @@ plusBtn.addEventListener("click", () => {
   }
 });
 minBtn.addEventListener("click", () => {
-  if (checkPrevious(mainLine.textContent, "-") == 1) {
+  if (
+    checkPrevious(mainLine.textContent, "-") == 1 ||
+    isError(mainLine.textContent)
+  ) {
     mainLine.lastChild.remove();
     mainLine.innerHTML += "<span>-</span>";
   } else if (checkPrevious(mainLine.textContent, "-") == 2) {
@@ -139,6 +196,14 @@ equalsBtn.addEventListener("click", () => {
   topLine.innerHTML = mainLine.innerHTML;
   mainLine.textContent = "=" + roundOff(arrangeBracket(mainLine.textContent));
 });
+
+function isError(str) {
+  if (str == "=Error") {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function checkPrevious(eqn, char) {
   eqnArr = eqn.split(/([+\-*/π√()])/).filter(Boolean);
@@ -179,11 +244,14 @@ function convertPi(arrSum) {
 
 function convertSqrt(arrSum) {
   for (let i = 0; i < arrSum.length; i++) {
-    if (arrSum[i] == "√") {
+    if (arrSum[i] == "√" && Number(arrSum[i - 1])) {
+      arrSum.splice(i, 2, "*", Math.sqrt(arrSum[i + 1]));
+      i++;
+    } else if (arrSum[i] == "√") {
       arrSum.splice(i, 2, Math.sqrt(arrSum[i + 1]));
     }
-    return arrSum;
   }
+  return arrSum;
 }
 
 function arrangeBracket(eqn) {
@@ -193,6 +261,9 @@ function arrangeBracket(eqn) {
     if (eqnArr[i] == "(") {
       if (Number(eqnArr[i - 1]) || eqnArr[i - 1] == ")") {
         eqnArr.splice(i, 0, "*");
+      }
+      if (eqnArr[i - 1] == "-") {
+        eqnArr.splice(i, 0, "1", "*");
       }
     }
   }
@@ -238,6 +309,7 @@ function repairPlusMinusBefore(arrSum) {
 function calculate(eqn) {
   console.log(eqn);
   arrSum = eqn.split(/([+\-*/π√])/).filter(Boolean);
+  console.log(arrSum);
   arrSum = repairPlusMinusBefore(arrSum);
   console.log(arrSum);
 
