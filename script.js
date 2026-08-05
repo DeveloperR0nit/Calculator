@@ -272,25 +272,20 @@ function arrangeBracket(eqn) {
 
 function Bracket(eqn) {
   eqnArr = eqn.split(/([()])/).filter(Boolean);
-  console.log(eqnArr);
   const regex = /(?=.*\()(?=.*\))/;
   let start = -1;
-  console.log(regex.test(eqn));
   while (regex.test(eqn)) {
     for (let i = eqnArr.length - 1; i >= 0; i--) {
-      console.log(eqnArr[i]);
       if (eqnArr[i] == "(") {
         start = i;
         break;
       }
     }
-    console.log(eqnArr[start + 1]);
+
     eqnArr.splice(start, 3, String(calculate(String(eqnArr[start + 1]))));
     eqn = eqnArr.join("");
     eqnArr = eqn.split(/([()])/).filter(Boolean);
-    console.log(eqn);
   }
-  console.log(eqn);
   return calculate(eqn);
 }
 
@@ -307,15 +302,9 @@ function repairPlusMinusBefore(arrSum) {
 }
 
 function calculate(eqn) {
-  console.log(eqn);
   arrSum = eqn.split(/([+\-*/π√])/).filter(Boolean);
-  console.log(arrSum);
   arrSum = repairPlusMinusBefore(arrSum);
-  console.log(arrSum);
-
-  console.log(arrSum);
   arrSum = convertSqrt(arrSum);
-  console.log(arrSum);
   for (let i = 0; i < arrSum.length; i++) {
     if (arrSum[i] == "/") {
       let calc = Number(arrSum[i - 1]) / Number(arrSum[i + 1]);
@@ -328,7 +317,6 @@ function calculate(eqn) {
     }
   }
 
-  console.log(arrSum);
   for (let i = 0; i < arrSum.length; i++) {
     if (arrSum[i] == "+") {
       let calc = Number(arrSum[i - 1]) + Number(arrSum[i + 1]);
