@@ -61,6 +61,7 @@ button{
   color: #818181;
   margin-bottom: 10px;
   text-align: end;
+  height: 37px;
 }
 #result {
   font-size: 48px;

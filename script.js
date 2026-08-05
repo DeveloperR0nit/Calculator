@@ -117,29 +117,24 @@ minBtn.addEventListener("click", () => {
 
 equalsBtn.addEventListener("click", () => {
   topLine.textContent = mainLine.textContent;
-  mainLine.textContent =
-    "=" + Math.round(Bracket(mainLine.textContent) * 1000) / 1000;
+  mainLine.textContent = "=" + roundOff(arrangeBracket(mainLine.textContent));
 });
+
+function roundOff(num) {
+  if (Number(num)) {
+    return Math.round(num * 1000) / 1000;
+  } else {
+    return "Error";
+  }
+}
 
 function convertPi(arrSum) {
   for (let i = 0; i < arrSum.length; i++) {
     if (arrSum[i] == "π") {
       arrSum.splice(i, 1, "3.141592653589793");
-      if (
-        arrSum[i - 1] !== "/" &&
-        arrSum[i - 1] !== "*" &&
-        arrSum[i - 1] !== "+" &&
-        arrSum[i - 1] !== "-" &&
-        arrSum[i - 1] !== ""
-      ) {
-        arrSum.splice(i - 1, 0, "*");
-      } else if (
-        arrSum[i + 1] !== "/" &&
-        arrSum[i + 1] !== "*" &&
-        arrSum[i + 1] !== "+" &&
-        arrSum[i + 1] !== "-" &&
-        arrSum[i - 1] !== ""
-      ) {
+      if (Number(arrSum[i - 1])) {
+        arrSum.splice(i, 0, "*");
+      } else if (Number(arrSum[i + 1])) {
         arrSum.splice(i + 1, 0, "*");
       }
     }
@@ -156,6 +151,19 @@ function convertSqrt(arrSum) {
   }
 }
 
+function arrangeBracket(eqn) {
+  eqnArr = eqn.split(/([+\-*/π√()])/).filter(Boolean);
+  eqnArr = convertPi(eqnArr);
+  for (let i = 0; i < eqnArr.length; i++) {
+    if (eqnArr[i] == "(") {
+      if (Number(eqnArr[i - 1])) {
+        eqnArr.splice(i, 0, "*");
+      }
+    }
+  }
+  return Bracket(eqnArr.join(""));
+}
+
 function Bracket(eqn) {
   eqnArr = eqn.split(/([()])/).filter(Boolean);
   console.log(eqnArr);
@@ -170,19 +178,20 @@ function Bracket(eqn) {
         break;
       }
     }
-    console.log(eqnArr[start + 1])
+    console.log(eqnArr[start + 1]);
     eqnArr.splice(start, 3, String(calculate(String(eqnArr[start + 1]))));
     eqn = eqnArr.join("");
     eqnArr = eqn.split(/([()])/).filter(Boolean);
-    console.log(eqn)
+    console.log(eqn);
   }
-  return(calculate(eqn))
+  console.log(eqn);
+  return calculate(eqn);
 }
 
 function calculate(eqn) {
   arrSum = eqn.split(/([+\-*/π√])/).filter(Boolean);
-  arrSum = convertPi(arrSum);
   arrSum = convertSqrt(arrSum);
+  console.log(arrSum);
   for (let i = 0; i < arrSum.length; i++) {
     if (arrSum[i] == "/") {
       let calc = Number(arrSum[i - 1]) / Number(arrSum[i + 1]);
