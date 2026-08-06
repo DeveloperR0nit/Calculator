@@ -62,15 +62,17 @@ button {
   margin-bottom: 10px;
   text-align: end;
   height: 37px;
+  overflow-x: scroll;
+  text-wrap: nowrap;
+  max-width: 309px;
 }
 #result {
-  font-size: 48px;
+  font-size: 42px;
   text-align: end;
   color: white;
   margin-bottom: 78px;
   height: 72px;
-  max-width: 300px;
-  margin-left: auto;
+  max-width: 309px;
   overflow-x: scroll;
   text-wrap: nowrap;
 }

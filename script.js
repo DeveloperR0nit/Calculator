@@ -30,31 +30,41 @@ const equalsBtn = document.querySelector("#equals");
 
 piBtn.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+    mainLine.textContent = "";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
   }
   const textNode = document.createTextNode("π");
   mainLine.append(textNode);
+  adjustFont();
 });
 rootBtn.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+    mainLine.textContent = "";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
   }
   const textNode = document.createTextNode("√");
   mainLine.append(textNode);
+  adjustFont();
 });
 brac1Btn.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+    mainLine.textContent = "";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
   }
   const textNode = document.createTextNode("(");
   mainLine.append(textNode);
+  adjustFont();
 });
 brac2Btn.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode(")");
   mainLine.append(textNode);
+  adjustFont();
 });
 acBtn.addEventListener("click", () => {
   mainLine.textContent = "";
@@ -64,145 +74,210 @@ acBtn.addEventListener("dblclick", () => {
 });
 
 backspaceBtn.addEventListener("click", () => {
-  if (mainLine.textContent) {
+  if (isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
+  } else if (mainLine.textContent) {
     mainLine.lastChild.remove();
   }
+  adjustFont();
 });
 
 btn1.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("1");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn2.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("2");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn3.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("3");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn4.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("4");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn5.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("5");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn6.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("6");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn7.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("7");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn8.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("8");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn9.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("9");
   mainLine.append(textNode);
+  adjustFont();
 });
 btn0.addEventListener("click", () => {
-  if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    mainLine.textContent = "";
   }
   const textNode = document.createTextNode("0");
   mainLine.append(textNode);
+  adjustFont();
 });
 btnDot.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
-    mainLine.lastChild.remove();
+    mainLine.textContent = "";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
   }
   const textNode = document.createTextNode(".");
   mainLine.append(textNode);
+  adjustFont();
 });
 
 divBtn.addEventListener("click", () => {
-  if (
-    checkPrevious(mainLine.textContent, "/") == 1 ||
-    isError(mainLine.textContent)
-  ) {
-    mainLine.lastChild.remove();
+  if (checkPrevious(mainLine.textContent, "/") == 1) {
+    mainLine.lastElementChild.remove();
+    mainLine.innerHTML += "<span>/</span>";
+  } else if (isError(mainLine.textContent)) {
+    mainLine.textContent = "";
+    mainLine.innerHTML += "<span>/</span>";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>/</span>";
   } else if (checkPrevious(mainLine.textContent, "/") == 2) {
     mainLine.innerHTML += "<span>/</span>";
   }
+  adjustFont();
 });
+
 mulBtn.addEventListener("click", () => {
-  if (
-    checkPrevious(mainLine.textContent, "*") == 1 ||
-    isError(mainLine.textContent)
-  ) {
-    mainLine.lastChild.remove();
+  if (checkPrevious(mainLine.textContent, "*") == 1) {
+    mainLine.lastElementChild.remove();
+    mainLine.innerHTML += "<span>*</span>";
+  } else if (isError(mainLine.textContent)) {
+    mainLine.textContent = "";
+    mainLine.innerHTML += "<span>*</span>";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>*</span>";
   } else if (checkPrevious(mainLine.textContent, "*") == 2) {
     mainLine.innerHTML += "<span>*</span>";
   }
+  adjustFont();
 });
+
 plusBtn.addEventListener("click", () => {
-  if (
-    checkPrevious(mainLine.textContent, "+") == 1 ||
-    isError(mainLine.textContent)
-  ) {
-    mainLine.lastChild.remove();
+  if (checkPrevious(mainLine.textContent, "+") == 1) {
+    mainLine.lastElementChild.remove();
+    mainLine.innerHTML += "<span>+</span>";
+  } else if (isError(mainLine.textContent)) {
+    mainLine.textContent = "";
+    mainLine.innerHTML += "<span>+</span>";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>+</span>";
   } else if (checkPrevious(mainLine.textContent, "+") == 2) {
     mainLine.innerHTML += "<span>+</span>";
   }
+  adjustFont();
 });
+
 minBtn.addEventListener("click", () => {
-  if (
-    checkPrevious(mainLine.textContent, "-") == 1 ||
-    isError(mainLine.textContent)
-  ) {
-    mainLine.lastChild.remove();
+  if (checkPrevious(mainLine.textContent, "-") == 1) {
+    mainLine.lastElementChild.remove();
+    mainLine.innerHTML += "<span>-</span>";
+  } else if (isError(mainLine.textContent)) {
+    mainLine.textContent = "";
+    mainLine.innerHTML += "<span>-</span>";
+  } else if (isResult(mainLine.textContent)) {
+    mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>-</span>";
   } else if (checkPrevious(mainLine.textContent, "-") == 2) {
     mainLine.innerHTML += "<span>-</span>";
   }
+  adjustFont();
 });
 
 equalsBtn.addEventListener("click", () => {
-  topLine.innerHTML = mainLine.innerHTML;
-  mainLine.textContent = "=" + roundOff(arrangeBracket(mainLine.textContent));
+  if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    return;
+  } else {
+    topLine.innerHTML = mainLine.innerHTML;
+    let result = convertResult(arrangeBracket(mainLine.textContent));
+    if (isError(result)) {
+      mainLine.textContent = result;
+    } else {
+      mainLine.innerHTML = `<span>=</span>${result}`;
+    }
+  }
+  adjustFont();
 });
 
-function isError(str) {
-  if (str == "=Error") {
+function isResult(eqn) {
+  eqnArr = eqn.split(/(=)/).filter(Boolean);
+  if (eqnArr[0] == "=") {
     return true;
   } else {
     return false;
   }
+}
+
+function isError(str) {
+  if (str == "Error" || str == "Infinity" || str == "∞") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function removeCommas(eqn) {
+  resEqnArr = eqn.split(/(,)/).filter(Boolean);
+  for (i = 0; i < resEqnArr.length; i++) {
+    if (resEqnArr[i] == ",") {
+      resEqnArr.splice(i, 1);
+      i--;
+    }
+  }
+  return resEqnArr.join("");
 }
 
 function checkPrevious(eqn, char) {
@@ -220,9 +295,10 @@ function checkPrevious(eqn, char) {
   }
 }
 
-function roundOff(num) {
+function convertResult(num) {
   if (Number(num)) {
-    return Math.round(num * 1000) / 1000;
+    let roundedVal = Math.round(num * 1000) / 1000;
+    return roundedVal.toLocaleString();
   } else {
     return "Error";
   }
@@ -255,6 +331,7 @@ function convertSqrt(arrSum) {
 }
 
 function arrangeBracket(eqn) {
+  eqn = removeCommas(eqn);
   eqnArr = eqn.split(/([+\-*/π√()])/).filter(Boolean);
   eqnArr = convertPi(eqnArr);
   for (let i = 0; i < eqnArr.length; i++) {
@@ -329,4 +406,16 @@ function calculate(eqn) {
     }
   }
   return arrSum[0];
+}
+
+const LARGE = "42px";
+const SMALL = "26px";
+
+function adjustFont() {
+  mainLine.style.fontSize = LARGE;
+  mainLine.style.paddingTop = "0px";
+  if (mainLine.scrollWidth > mainLine.clientWidth) {
+    mainLine.style.fontSize = SMALL;
+    mainLine.style.paddingTop = "18px";
+  }
 }
