@@ -37,6 +37,8 @@ piBtn.addEventListener("click", () => {
   const textNode = document.createTextNode("π");
   mainLine.append(textNode);
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 rootBtn.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
@@ -47,6 +49,8 @@ rootBtn.addEventListener("click", () => {
   const textNode = document.createTextNode("√");
   mainLine.append(textNode);
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 brac1Btn.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
@@ -57,6 +61,8 @@ brac1Btn.addEventListener("click", () => {
   const textNode = document.createTextNode("(");
   mainLine.append(textNode);
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 brac2Btn.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -65,12 +71,23 @@ brac2Btn.addEventListener("click", () => {
   const textNode = document.createTextNode(")");
   mainLine.append(textNode);
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 acBtn.addEventListener("click", () => {
   mainLine.textContent = "";
+  operationSound.currentTime = 0;
+  operationSound.play();
+  if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+  }
 });
 acBtn.addEventListener("dblclick", () => {
   topLine.textContent = "";
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 backspaceBtn.addEventListener("click", () => {
@@ -80,6 +97,8 @@ backspaceBtn.addEventListener("click", () => {
     mainLine.lastChild.remove();
   }
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 btn1.addEventListener("click", () => {
@@ -89,6 +108,8 @@ btn1.addEventListener("click", () => {
   const textNode = document.createTextNode("1");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn2.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -97,6 +118,8 @@ btn2.addEventListener("click", () => {
   const textNode = document.createTextNode("2");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn3.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -105,6 +128,8 @@ btn3.addEventListener("click", () => {
   const textNode = document.createTextNode("3");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn4.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -113,6 +138,8 @@ btn4.addEventListener("click", () => {
   const textNode = document.createTextNode("4");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn5.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -121,6 +148,8 @@ btn5.addEventListener("click", () => {
   const textNode = document.createTextNode("5");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn6.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -129,6 +158,8 @@ btn6.addEventListener("click", () => {
   const textNode = document.createTextNode("6");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn7.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -137,6 +168,8 @@ btn7.addEventListener("click", () => {
   const textNode = document.createTextNode("7");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn8.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -145,6 +178,8 @@ btn8.addEventListener("click", () => {
   const textNode = document.createTextNode("8");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn9.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -153,6 +188,8 @@ btn9.addEventListener("click", () => {
   const textNode = document.createTextNode("9");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btn0.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
@@ -161,6 +198,8 @@ btn0.addEventListener("click", () => {
   const textNode = document.createTextNode("0");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 btnDot.addEventListener("click", () => {
   if (isError(mainLine.textContent)) {
@@ -171,6 +210,8 @@ btnDot.addEventListener("click", () => {
   const textNode = document.createTextNode(".");
   mainLine.append(textNode);
   adjustFont();
+  numberSound.currentTime = 0;
+  numberSound.play();
 });
 
 divBtn.addEventListener("click", () => {
@@ -187,6 +228,8 @@ divBtn.addEventListener("click", () => {
     mainLine.innerHTML += "<span>/</span>";
   }
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 mulBtn.addEventListener("click", () => {
@@ -203,6 +246,8 @@ mulBtn.addEventListener("click", () => {
     mainLine.innerHTML += "<span>*</span>";
   }
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 plusBtn.addEventListener("click", () => {
@@ -219,6 +264,8 @@ plusBtn.addEventListener("click", () => {
     mainLine.innerHTML += "<span>+</span>";
   }
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 minBtn.addEventListener("click", () => {
@@ -235,21 +282,31 @@ minBtn.addEventListener("click", () => {
     mainLine.innerHTML += "<span>-</span>";
   }
   adjustFont();
+  operationSound.currentTime = 0;
+  operationSound.play();
 });
 
 equalsBtn.addEventListener("click", () => {
   if (isError(mainLine.textContent) || isResult(mainLine.textContent)) {
+    equalsSound.currentTime = 0;
+    equalsSound.play();
     return;
   } else {
     topLine.innerHTML = mainLine.innerHTML;
     let result = convertResult(arrangeBracket(mainLine.textContent));
     if (isError(result)) {
       mainLine.textContent = result;
+    } else if (result == "10") {
+      mainLine.textContent = "";
+      messi.classList.add("show");
+      messi.play();
     } else {
       mainLine.innerHTML = `<span>=</span>${result}`;
     }
   }
   adjustFont();
+  equalsSound.currentTime = 0;
+  equalsSound.play();
 });
 
 function isResult(eqn) {
@@ -419,3 +476,13 @@ function adjustFont() {
     mainLine.style.paddingTop = "18px";
   }
 }
+
+topLine.addEventListener("click", () => {
+  mainLine.innerHTML = topLine.innerHTML;
+  topLine.textContent = "";
+});
+
+const numberSound = new Audio("assests/number-sound.mp3");
+const operationSound = new Audio("assests/operation-sound.mp3");
+const equalsSound = new Audio("assests/equals-sound.mp3");
+const messi = document.querySelector(".messi-edit");

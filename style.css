@@ -15,6 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #001134;
 }
 
 .container {
@@ -68,6 +69,7 @@ button {
   overflow-x: scroll;
   text-wrap: nowrap;
   max-width: 309px;
+  transition: 0.6s ease;
 }
 #result {
   font-size: 42px;
@@ -78,6 +80,7 @@ button {
   max-width: 309px;
   overflow-x: scroll;
   text-wrap: nowrap;
+  transition: 0.6s ease;
 }
 .row-btn {
   display: flex;
@@ -189,4 +192,17 @@ button {
   width: 90px;
   background: black;
   border-radius: 20px;
+}
+.messi-edit {
+    position: absolute;
+    top: 185px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    transition: 0.6s ease;
+    opacity: 0;
+    border-radius: 10px;
+}
+.messi-edit.show{
+  opacity: 1;
 }
