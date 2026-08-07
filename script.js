@@ -1,3 +1,15 @@
+const width = window.innerWidth;
+const calcWrapper = document.querySelector(".calc-wrapper")
+console.log(width)
+if (width < 400){
+  calcWrapper.style.minWidth = `0px`;
+  newWidth = window.innerWidth;
+  console.log(newWidth)
+  calcWrapper.style.minWidth = `${newWidth}px`;
+  const padding = 33 - ((400 - newWidth) / 3.478260869565217391304347826087)
+  calcWrapper.style.padding = `138px ${padding}px 40px`;
+}
+
 const topLine = document.querySelector(".top-line");
 const mainLine = document.querySelector("#result");
 
@@ -33,6 +45,11 @@ piBtn.addEventListener("click", () => {
     mainLine.textContent = "";
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.textContent = "10";
   }
   const textNode = document.createTextNode("π");
   mainLine.append(textNode);
@@ -45,6 +62,11 @@ rootBtn.addEventListener("click", () => {
     mainLine.textContent = "";
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.textContent = "10";
   }
   const textNode = document.createTextNode("√");
   mainLine.append(textNode);
@@ -57,6 +79,11 @@ brac1Btn.addEventListener("click", () => {
     mainLine.textContent = "";
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.textContent = "10";
   }
   const textNode = document.createTextNode("(");
   mainLine.append(textNode);
@@ -78,11 +105,6 @@ acBtn.addEventListener("click", () => {
   mainLine.textContent = "";
   operationSound.currentTime = 0;
   operationSound.play();
-  if (messi.classList.contains("show")) {
-    messi.classList.remove("show");
-    messi.pause();
-    messi.currentTime = 0;
-  }
 });
 acBtn.addEventListener("dblclick", () => {
   topLine.textContent = "";
@@ -224,6 +246,11 @@ divBtn.addEventListener("click", () => {
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>/</span>";
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.innerHTML = "10" + "<span>/</span>";
   } else if (checkPrevious(mainLine.textContent, "/") == 2) {
     mainLine.innerHTML += "<span>/</span>";
   }
@@ -242,12 +269,22 @@ mulBtn.addEventListener("click", () => {
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>*</span>";
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.innerHTML = "10" + "<span>*</span>";
   } else if (checkPrevious(mainLine.textContent, "*") == 2) {
     mainLine.innerHTML += "<span>*</span>";
   }
   adjustFont();
   operationSound.currentTime = 0;
   operationSound.play();
+  if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+  }
 });
 
 plusBtn.addEventListener("click", () => {
@@ -260,12 +297,22 @@ plusBtn.addEventListener("click", () => {
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>+</span>";
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.innerHTML = "10" + "<span>+</span>";
   } else if (checkPrevious(mainLine.textContent, "+") == 2) {
     mainLine.innerHTML += "<span>+</span>";
   }
   adjustFont();
   operationSound.currentTime = 0;
   operationSound.play();
+  if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+  }
 });
 
 minBtn.addEventListener("click", () => {
@@ -278,12 +325,22 @@ minBtn.addEventListener("click", () => {
   } else if (isResult(mainLine.textContent)) {
     mainLine.firstElementChild.remove();
     mainLine.innerHTML += "<span>-</span>";
+  } else if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+    mainLine.innerHTML = "10" + "<span>-</span>";
   } else if (checkPrevious(mainLine.textContent, "-") == 2) {
     mainLine.innerHTML += "<span>-</span>";
   }
   adjustFont();
   operationSound.currentTime = 0;
   operationSound.play();
+  if (messi.classList.contains("show")) {
+    messi.classList.remove("show");
+    messi.pause();
+    messi.currentTime = 0;
+  }
 });
 
 equalsBtn.addEventListener("click", () => {
@@ -292,16 +349,23 @@ equalsBtn.addEventListener("click", () => {
     equalsSound.play();
     return;
   } else {
-    topLine.innerHTML = mainLine.innerHTML;
-    let result = convertResult(arrangeBracket(mainLine.textContent));
-    if (isError(result)) {
-      mainLine.textContent = result;
-    } else if (result == "10") {
-      mainLine.textContent = "";
-      messi.classList.add("show");
-      messi.play();
+    if (messi.classList.contains("show")) {
+      messi.classList.remove("show");
+      messi.pause();
+      messi.currentTime = 0;
+      mainLine.innerHTML = "<span>=</span>" + "10";
     } else {
-      mainLine.innerHTML = `<span>=</span>${result}`;
+      topLine.innerHTML = mainLine.innerHTML;
+      let result = convertResult(arrangeBracket(mainLine.textContent));
+      if (isError(result)) {
+        mainLine.textContent = result;
+      } else if (result == "10") {
+        mainLine.textContent = "";
+        messi.classList.add("show");
+        messi.play();
+      } else {
+        mainLine.innerHTML = `<span>=</span>${result}`;
+      }
     }
   }
   adjustFont();
@@ -486,3 +550,22 @@ const numberSound = new Audio("assests/number-sound.mp3");
 const operationSound = new Audio("assests/operation-sound.mp3");
 const equalsSound = new Audio("assests/equals-sound.mp3");
 const messi = document.querySelector(".messi-edit");
+
+document.querySelectorAll(".black-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (messi.classList.contains("show")) {
+      messi.classList.remove("show");
+      messi.pause();
+      messi.currentTime = 0;
+    }
+  });
+});
+document.querySelectorAll(".grey-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (messi.classList.contains("show")) {
+      messi.classList.remove("show");
+      messi.pause();
+      messi.currentTime = 0;
+    }
+  });
+});

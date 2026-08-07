@@ -23,6 +23,7 @@ body {
   width: 100%;
   margin: auto;
   padding: 0 15px;
+  overflow-x: hidden;
 }
 
 .row {
@@ -80,7 +81,6 @@ button {
   max-width: 309px;
   overflow-x: scroll;
   text-wrap: nowrap;
-  transition: 0.6s ease;
 }
 .row-btn {
   display: flex;
@@ -205,4 +205,8 @@ button {
 }
 .messi-edit.show{
   opacity: 1;
+}
+
+@media screen and (max-width: 400px) {
+  
 }
